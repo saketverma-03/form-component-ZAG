@@ -19,12 +19,14 @@ type Inputs = {
 //   );
 
 function App() {
+  // react-form-hook config
   const {
     register,
     handleSubmit,
     formState: { errors, isValid },
   } = useForm<Inputs>({ mode: "all" });
 
+  // for json validation
   const [isJson, setIsJeson] = useState<boolean>(true);
   const [jsonFileContent, setJsonFileContent] = useState<string>("");
 
@@ -69,14 +71,14 @@ function App() {
           <button>
             <img src={backArrowIcon} />
           </button>
-          <h1 className="text-2xl ml-5 font-semibold">
-            Submit form
-            {/* {JSON.stringify(isDirty)} */}
-            {/* {"--" + JSON.stringify(submitCount)} */}
-            {isValid && hasIntr && isJson ? "success" : "error"}
-          </h1>
+          <h1 className="text-2xl ml-5 font-semibold">Submit form</h1>
         </div>
         {/* form */}
+        {/* three inputs
+          1. name
+          2. email
+          3. file
+        */}
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
           {/* input-1 name */}
           <label htmlFor="full-name" className="text-sm relative">
@@ -111,13 +113,14 @@ function App() {
               type="email"
               id="email"
               placeholder="Full Name"
-              // form validation
               {...register("email", {
                 required: {
                   value: true,
                   message: "This feild cannot be empty",
                 },
-                validate: (email) => isValidEmail(email) || "lolol",
+                validate: (email) =>
+                  isValidEmail(email) ||
+                  "give a vlaid email eg. example@example.com",
               })}
             />
             <img className="h-w-6 w-6 mr-5" src={emailIcon} alt="" />
@@ -127,7 +130,6 @@ function App() {
           <label htmlFor="">
             Upload JSON File
             <span className="text-red-500 w-full ml-3">
-              {/* {errors.file?.message as string } */}
               {isJson ? "" : "Valid json neddedd"}
             </span>
           </label>
@@ -142,9 +144,7 @@ function App() {
               id="file-input"
               type="file"
               className="hidden"
-              {...register("file", {
-                // validate: (files) => josnFileValidatior(files[0]),
-              })}
+              {...register("file")}
               onChange={(e) => josnFileValidatior(e.target.files[0])}
             />
           </label>
@@ -162,6 +162,7 @@ function App() {
           </button>
         </form>
 
+        {/* POPUP message */}
         <dialog id="my_modal_2" className="modal">
           {/* image */}
           <div className="modal-box rounded-3xl text-center flex flex-col">
