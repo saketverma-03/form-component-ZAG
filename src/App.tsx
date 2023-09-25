@@ -12,8 +12,6 @@ type Inputs = {
   file: any;
 };
 
-
-
 function App() {
   // react-form-hook config
   const {
@@ -141,9 +139,7 @@ function App() {
               type="file"
               className="hidden"
               {...register("file")}
-              onChange={(e: React.FormEvent) =>
-                josnFileValidatior(e.target.files[0])
-              }
+              onChange={(e: any) => josnFileValidatior(e.target.files[0])}
             />
           </label>
           <label className="label"> File contents</label>
