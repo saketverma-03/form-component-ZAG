@@ -12,11 +12,7 @@ type Inputs = {
   file: any;
 };
 
-// const isValidEmail = (email: string) =>
-//   // eslint-disable-next-line no-useless-escape
-//   /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-//     email
-//   );
+
 
 function App() {
   // react-form-hook config
@@ -35,8 +31,8 @@ function App() {
   // when using isValid for files field
   const [hasIntr, setHasInter] = useState(false);
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    // console.log(data);
+  const onSubmit: SubmitHandler<Inputs> = () => {
+    // @ts-ignore
     document.getElementById("my_modal_2").showModal();
   };
 
@@ -145,7 +141,9 @@ function App() {
               type="file"
               className="hidden"
               {...register("file")}
-              onChange={(e) => josnFileValidatior(e.target.files[0])}
+              onChange={(e: React.FormEvent) =>
+                josnFileValidatior(e.target.files[0])
+              }
             />
           </label>
           <label className="label"> File contents</label>
